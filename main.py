@@ -90,3 +90,53 @@ print(len(X), len(y))
 
 classes = ['bird', 'boar', 'dog', 'dragon', 'hare', 'horse', 'monkey', 'ox', 'ram', 'rat', 'snake', 
            'tiger', 'zero']
+
+def plot_sample_images():
+    figure = plt.figure()
+    plt.figure(figsize=(16,5))
+
+    for i in range (0,13):
+        plt.subplot(3,10,i+1)
+        plt.xticks([])
+        plt.yticks([])
+        dir_list = os.listdir(train_dir + f"/{classes[i]}")
+        path = train_dir + f"/{classes[i]}/" + dir_list[0]
+        img = plt.imread(path)
+        plt.imshow(img)
+        plt.xlabel(classes[i])
+        
+plot_sample_images()
+
+def preprocess_data(X, y):
+    np_X = np.array(X)
+    normalised_X = np_X.astype('float32')/255.0
+    
+    label_encoded_y = utils.to_categorical(y)
+    
+    x_train, x_test, y_train, y_test = train_test_split(normalised_X, label_encoded_y, test_size = 0.01)
+    
+    
+    return x_train, x_test, y_train, y_test
+
+x_train, x_test, y_train, y_test = preprocess_data(X, y)
+
+y_train[0]
+
+len(y_train[0])
+
+n = 0
+
+for i in range(0, len(y_train)):
+    if y_train[i][0] != y_train[0][0]:
+        n+=1
+        
+print(n)
+
+print("Training data:", x_train.shape)
+print("Test data:", x_test.shape)
+
+classes_len = len(classes)
+batch = 32
+epochs = 50
+learning_rate = 0.001
+
