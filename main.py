@@ -135,7 +135,7 @@ print(n)
 print("Training data:", x_train.shape)
 print("Test data:", x_test.shape)
 
-classes_len = len(classes)
+classes = 13
 batch = 32
 epochs = 50
 learning_rate = 0.001
@@ -180,27 +180,7 @@ test_loss, test_acc = model.evaluate(x_test, y_test)
 print('Test accuracy:', test_acc)
 print('Test loss:', test_loss)
 
-def plot_results(model):
-
-  plt.figure(figsize=(12, 12))
-  plt.subplot(3, 2, 1)
-  plt.plot(history.history['accuracy'], label = 'train_accuracy')
-  plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
-  plt.xlabel('epoch')
-  plt.ylabel('accuracy')
-  plt.legend()
-  plt.subplot(3, 2, 2)
-  plt.plot(history.history['loss'], label = 'train_loss')
-  plt.plot(history.history['val_loss'], label = 'val_loss')
-  plt.xlabel('epoch')
-  plt.ylabel('accuracy')
-  plt.legend()
-  plt.show()
-
-
-    
-plot_results(model)
-model.save("model")
+model.save("model.h5")
 
 
 
