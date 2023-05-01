@@ -120,9 +120,9 @@ def preprocess_data(X, y):
 
 x_train, x_test, y_train, y_test = preprocess_data(X, y)
 
-y_train[0]
+print(y_test[0],len(y_train[0]))
 
-len(y_train[0])
+
 
 n = 0
 
@@ -139,4 +139,37 @@ classes_len = len(classes)
 batch = 32
 epochs = 50
 learning_rate = 0.001
+
+model = Sequential()
+
+model.add(Conv2D(64, (3, 3), padding='same', input_shape=(128, 128, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
+
+model.add(Conv2D(128, (3, 3), padding='same', input_shape=(128, 128, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
+model.add(Dropout(0.2))
+
+model.add(Conv2D(256, (3, 3), padding='same', input_shape=(128, 128, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
+
+model.add(Conv2D(512, (3, 3), padding='same', input_shape=(128, 128, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
+
+model.add(Conv2D(1024, (3, 3), padding='same', input_shape=(128, 128, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
+
+model.add(Flatten())
+model.add(Dropout(0.2))
+model.add(Dense(1024, activation='relu'))
+model.add(Dense(classes, activation='softmax'))
+
+adam = Adam(learning_rate)
+model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
+
+model.summary()
 
